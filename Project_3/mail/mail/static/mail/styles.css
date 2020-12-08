@@ -1,0 +1,33 @@
+textarea {
+    min-height: 400px;
+}
+
+#error {
+	color: red;
+}
+
+.read {
+	border: 1px outset lightblue;
+	border-radius: 10px;
+	border-spacing: 10px;
+	background-color: gray;
+	margin-top: 10px;
+}
+
+.unread {
+	border: 1px outset lightblue;
+	border-radius: 10px;
+	margin-top: 10px;
+}
+
+.time {
+	font-size: 10px;
+}
+
+.mailHead {
+	border: 1px outset gray;
+}
+
+.butt {
+	margin: 10px;
+}

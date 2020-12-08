@@ -1,0 +1,73 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{ listing.title}}</h2>
+    	<div class="container">
+            {% if listing.image != "" %}
+                <img src="{{ listing.image}} " class="listing" class="listing">
+            {% endif %}
+            {% if listing.image != "" %}
+            <div class="desc_list">
+            {% else %}
+            <div>
+            {% endif %}
+                <b>Description: </b>{{ listing.description }}<br />
+                <b>Current Price: </b>$ 
+                {{ listing.current_price }}
+                <br />
+                {% if request.user.is_authenticated %}
+                {% if w == True %}
+                    <a href="{% url 'listing' listing.id %}">Remove from Watch List</a>
+                {% endif %}
+
+                {% if w == False %}
+                    <a href="{% url 'listing' listing.id %}" >Add to Watch List</a>
+                {% endif %}
+                <br /><br />
+                {% if listing.active == False %}
+                {% if gr_bid.user != request.user %}
+                    <div>This listing is already closed</div>
+                {% else %}
+                    <div>CONGRATULATIONS! You won the listing.</div>
+                {% endif %}
+            {% endif %}  
+                {% if listing.active == True %}
+                    <form action="{% url 'new_bid' %}" method="POST">
+                        {% csrf_token %}
+                        {{ bid_form }}
+                        <input type="hidden" value="{{ listing.id }}" name="listing_id">
+                    </form>
+                    <div class="error" style="color:red">{{ error }}</div>
+                {% endif %}
+            {% endif %}
+             {% if request.user == listing.user and listing.active == True %}
+                    <div><a href="{% url 'close_listing' listing.id %}">Close the listing</a></div>
+            {% endif %}
+            </div><br>
+
+
+            
+            <br />
+            <br />
+
+            <div class="container" id="comment">
+                <h2>COMMENTS</h2>
+                {% for comment in comments %}
+                    <p>
+                        <b>User:</b> {{ comment.user }} <br/>
+                        <b>Date:</b> {{ comment.dateTime }} <br/>
+                        {{ comment.text }}
+                    </p>
+                {% endfor %}
+                <form method="POST" action="{% url 'new_comment' %}">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <input type=hidden name="listing_id" value="{{ listing.id }}">
+                    <input type=submit>
+                </form>
+            </div>
+
+
+    	</div>
+
+{% endblock %}

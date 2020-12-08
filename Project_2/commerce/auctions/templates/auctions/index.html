@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2 class="title">{{ title }}</h2>
+
+    {% for listing in listings %}
+        <hr class="line">
+    	<div class="container">
+            <h3><a href="/{{ listing.title }}">{{ listing.title }}</a></h3>
+            {% if listing.image != "" %}
+            <div class="desc">
+            {% else %}
+            <div>
+            {% endif %}
+                <b>Description: </b>{{ listing.description }}<br />
+                <b>Current Price: </b>$ {{ listing.current_price }}
+                <div class="date">Since {{ listing.dateTime }}</div>   
+            </div>  
+            {% if listing.image != "" %}
+                <img src="{{ listing.image}} " class="listing">
+            {% endif %}
+    	</div>
+    {% endfor %}
+
+{% endblock %}

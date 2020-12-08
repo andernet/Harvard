@@ -1,0 +1,12 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Choose a Category</h2>
+
+    {% for cat in cats %}
+    	<div class="container">
+    		<h3><a href="/cat/{{ cat.id }}">{{ cat.name }}</a></h3>
+    	</div>
+    {% endfor %}
+
+{% endblock %}
